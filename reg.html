@@ -1,30 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Registration Form</title>
     <link rel="stylesheet" href="stylereg.css">
 </head>
-
 <body>
     <div class="container">
         <h1>Student Registration Form</h1>
-        <form id="registrationForm" onsubmit="return validateForm()">
+        <form id="registrationForm">
             <!-- Personal Information Section -->
             <fieldset>
                 <legend>Personal Information</legend>
-
                 <label for="firstName">First Name:</label>
                 <input type="text" id="firstName" name="firstName" required>
-
                 <label for="lastName">Last Name:</label>
                 <input type="text" id="lastName" name="lastName" required>
-
                 <label for="dob">Date of Birth:</label>
                 <input type="date" id="dob" name="dob" required>
-
                 <label for="gender">Gender:</label>
                 <select id="gender" name="gender" required>
                     <option value="">Select Gender</option>
@@ -32,18 +26,14 @@
                     <option value="female">Female</option>
                     <option value="other">Other</option>
                 </select>
-
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" required>
-
                 <label for="phone">Phone Number:</label>
                 <input type="tel" id="phone" name="phone" required>
             </fieldset>
-
             <!-- Educational Information Section -->
             <fieldset>
                 <legend>Educational Information</legend>
-
                 <label for="course">Course:</label>
                 <select id="course" name="course" required>
                     <option value="">Select Course</option>
@@ -52,7 +42,6 @@
                     <option value="engineering">Engineering</option>
                     <option value="literature">Literature</option>
                 </select>
-
                 <label for="year">Year:</label>
                 <select id="year" name="year" required>
                     <option value="">Select Year</option>
@@ -61,25 +50,22 @@
                     <option value="3">3rd Year</option>
                     <option value="4">4th Year</option>
                 </select>
-
                 <label for="grade">Grade:</label>
                 <input type="text" id="grade" name="grade" required>
             </fieldset>
-
             <!-- File Upload Section -->
             <fieldset>
                 <legend>Profile Picture</legend>
-
                 <label for="profilePicture">Upload Profile Picture:</label>
-                <input type="file" id="profilePicture" name="profilePicture" accept="image/*" required>
+                <input type="file" id="profilePicture" name="profilePicture" accept="image/*">
             </fieldset>
-
             <!-- Submit Button -->
-            <button type="submit">Register</button>
+            <button type="button" onclick="submitForm()">Register</button>
         </form>
+        <!-- Display Saved Records -->
+        <h2>Saved Records</h2>
+        <div id="recordsList"></div>
     </div>
-
     <script src="scriptreg.js"></script>
 </body>
-
 </html>
