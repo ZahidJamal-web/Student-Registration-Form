@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Student Registration Form</h1>
+        <h1><b>STUDENT REGISTRATION FORM</b></h1>
         <form id="registrationForm">
             <!-- Personal Information Section -->
             <fieldset>
@@ -16,7 +16,7 @@
                 <label for="firstName">First Name:</label>
                 <input type="text" id="firstName" name="firstName" required>
                 <label for="lastName">Last Name:</label>
-                <input type="text" id="lastName" name="lastName" required>
+                <input type="text" id="lastName" name="lastName">
                 <label for="dob">Date of Birth:</label>
                 <input type="date" id="dob" name="dob" required>
                 <label for="gender">Gender:</label>
@@ -28,6 +28,8 @@
                 </select>
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" required>
+	     <label for="confirmEmail">Confirm Email:</label>
+    	   <input type="email" id="confirmEmail" name="confirmEmail" required>
                 <label for="phone">Phone Number:</label>
                 <input type="tel" id="phone" name="phone" required>
             </fieldset>
@@ -37,10 +39,21 @@
                 <label for="course">Course:</label>
                 <select id="course" name="course" required>
                     <option value="">Select Course</option>
-                    <option value="computer_science">Computer Science</option>
-                    <option value="mathematics">Mathematics</option>
-                    <option value="engineering">Engineering</option>
-                    <option value="literature">Literature</option>
+		            <option value="BSc(Information Technology)">BSc(Information Technology)</option>
+                    <option value="BSc(Computer Science)">BSc(Computer Science)</option>
+                    <option value="BSc(Cognitive System)">BSc(Cognitive System)</option>
+                    <option value="CSE">CSE</option>
+                    <option value="EEE">EEE</option>
+                    <option value="ECE">ECE</option>
+                    <option value="BCOM">BCom</option>
+                    <option value="BCOm(CA)">BCom(CA)</option>
+		            <option value="BPharm">BPharm</option>
+		            <option value="Tamil literature"> Tamil Literature</option>
+		            <option value="English literature"> English Literature</option>
+                    <option value="BSc(Mathematics)">BSc(Mathematics)</option>
+                    <option value="BBA">BBA</option>
+                    <option value="MBA">MBA</option>
+                    <option value="MCA">MCA</option>
                 </select>
                 <label for="year">Year:</label>
                 <select id="year" name="year" required>
@@ -49,15 +62,18 @@
                     <option value="2">2nd Year</option>
                     <option value="3">3rd Year</option>
                     <option value="4">4th Year</option>
+                    <option value="5">5th Year</option>
                 </select>
                 <label for="grade">Grade:</label>
                 <input type="text" id="grade" name="grade" required>
+                <label for="cgpa">CGPA:</label>
+                <input type="number" id="cgpa" name="cgpa" min="1" max="10" required>
             </fieldset>
             <!-- File Upload Section -->
             <fieldset>
                 <legend>Profile Picture</legend>
                 <label for="profilePicture">Upload Profile Picture:</label>
-                <input type="file" id="profilePicture" name="profilePicture" accept="image/*">
+                <input type="file" id="profilePicture"  accept="image/*">
             </fieldset>
             <!-- Submit Button -->
             <button type="button" onclick="submitForm()">Register</button>
