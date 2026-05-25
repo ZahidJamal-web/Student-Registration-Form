@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Records</title>
+  <link rel="stylesheet" href="stylereg.css">
+
+  <style>
+    body{
+      min-height:100vh;
+      padding:40px;
+      background:#0f172a;
+      color:white;
+    }
+
+    .records-page{
+      max-width:1200px;
+      margin:auto;
+    }
+
+    .records-page h1{
+      text-align:center;
+      margin-bottom:40px;
+      font-size:3rem;
+    }
+
+    #recordsList{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:25px;
+    }
+
+    .record-card{
+      background:rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.1);
+      padding:25px;
+      border-radius:20px;
+      backdrop-filter:blur(10px);
+      transition:0.3s;
+    }
+
+    .record-card:hover{
+      transform:translateY(-5px);
+    }
+
+    .record-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:20px;
+    }
+
+    .record-header h3{
+      color:#38bdf8;
+    }
+
+    .record-body p{
+      margin:8px 0;
+      color:#ddd;
+    }
+
+    .delete-btn{
+      margin-top:15px;
+      width:100%;
+      padding:12px;
+      border:none;
+      border-radius:12px;
+      background:#ef4444;
+      color:white;
+      cursor:pointer;
+      font-weight:600;
+    }
+
+    .empty-record{
+      text-align:center;
+      padding:40px;
+      background:rgba(255,255,255,0.08);
+      border-radius:20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="records-page">
+    <h1>Student Records</h1>
+
+    <div id="recordsList"></div>
+  </div>
+
+  <script>
+
+    document.addEventListener("DOMContentLoaded", () => {
+      loadRecords();
+    });
+
+    function loadRecords() {
+
+      const recordsList = document.getElementById("recordsList");
+
+      const records = JSON.parse(localStorage.getItem("records")) || [];
+
+      recordsList.innerHTML = "";
+
+      if(records.length === 0){
+
+        recordsList.innerHTML = `
+          <div class="empty-record">
+            <h2>No Records Found</h2>
+            <p>Registered students will appear here.</p>
+          </div>
+        `;
+
+        return;
+      }
+
+      records.reverse().forEach((record, index) => {
+
+        const recordElement = document.createElement("div");
+
+        recordElement.classList.add("record-card");
+
+        recordElement.innerHTML = `
+
+          <div class="record-header">
+            <h3>${record.firstName} ${record.lastName}</h3>
+            <span>#${index + 1}</span>
+          </div>
+
+          <div class="record-body">
+
+            <p><strong>DOB:</strong> ${record.dob}</p>
+            <p><strong>Gender:</strong> ${record.gender}</p>
+            <p><strong>Email:</strong> ${record.email}</p>
+            <p><strong>Phone:</strong> ${record.phone}</p>
+            <p><strong>Course:</strong> ${record.course}</p>
+            <p><strong>Year:</strong> ${record.year}</p>
+            <p><strong>Grade:</strong> ${record.grade}</p>
+            <p><strong>CGPA:</strong> ${record.cgpa}</p>
+            <p><strong>Registered:</strong> ${record.createdAt}</p>
+
+            <button class="delete-btn" onclick="deleteRecord(${record.id})">
+              Delete Record
+            </button>
+
+          </div>
+        `;
+
+        recordsList.appendChild(recordElement);
+      });
+    }
+
+    function deleteRecord(id){
+
+      let records = JSON.parse(localStorage.getItem("records")) || [];
+
+      records = records.filter(record => record.id !== id);
+
+      localStorage.setItem("records", JSON.stringify(records));
+
+      loadRecords();
+    }
+
+  </script>
+
+</body>
+</html>
+

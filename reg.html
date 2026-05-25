@@ -1,87 +1,232 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Registration Form</title>
-    <link rel="stylesheet" href="stylereg.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Registration Portal</title>
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link rel="stylesheet" href="stylereg.css" />
 </head>
+
 <body>
-    <div class="container">
-        <h1><b>STUDENT REGISTRATION FORM</b></h1>
-        <form id="registrationForm">
-            <!-- Personal Information Section -->
-            <fieldset>
-                <legend>Personal Information</legend>
-                <label for="firstName">First Name:</label>
-                <input type="text" id="firstName" name="firstName" required>
-                <label for="lastName">Last Name:</label>
-                <input type="text" id="lastName" name="lastName">
-                <label for="dob">Date of Birth:</label>
-                <input type="date" id="dob" name="dob" required>
-                <label for="gender">Gender:</label>
-                <select id="gender" name="gender" required>
-                    <option value="">Select Gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
-                </select>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-	     <label for="confirmEmail">Confirm Email:</label>
-    	   <input type="email" id="confirmEmail" name="confirmEmail" required>
-                <label for="phone">Phone Number:</label>
-                <input type="tel" id="phone" name="phone" required>
-            </fieldset>
-            <!-- Educational Information Section -->
-            <fieldset>
-                <legend>Educational Information</legend>
-                <label for="course">Course:</label>
-                <select id="course" name="course" required>
-                    <option value="">Select Course</option>
-		            <option value="BSc(Information Technology)">BSc(Information Technology)</option>
-                    <option value="BSc(Computer Science)">BSc(Computer Science)</option>
-                    <option value="BSc(Cognitive System)">BSc(Cognitive System)</option>
-                    <option value="CSE">CSE</option>
-                    <option value="EEE">EEE</option>
-                    <option value="ECE">ECE</option>
-                    <option value="BCOM">BCom</option>
-                    <option value="BCOm(CA)">BCom(CA)</option>
-		            <option value="BPharm">BPharm</option>
-		            <option value="Tamil literature"> Tamil Literature</option>
-		            <option value="English literature"> English Literature</option>
-                    <option value="BSc(Mathematics)">BSc(Mathematics)</option>
-                    <option value="BBA">BBA</option>
-                    <option value="MBA">MBA</option>
-                    <option value="MCA">MCA</option>
-                </select>
-                <label for="year">Year:</label>
-                <select id="year" name="year" required>
-                    <option value="">Select Year</option>
-                    <option value="1">1st Year</option>
-                    <option value="2">2nd Year</option>
-                    <option value="3">3rd Year</option>
-                    <option value="4">4th Year</option>
-                    <option value="5">5th Year</option>
-                </select>
-                <label for="grade">Grade:</label>
-                <input type="text" id="grade" name="grade" required>
-                <label for="cgpa">CGPA:</label>
-                <input type="number" id="cgpa" name="cgpa" min="1" max="10" required>
-            </fieldset>
-            <!-- File Upload Section -->
-            <fieldset>
-                <legend>Profile Picture</legend>
-                <label for="profilePicture">Upload Profile Picture:</label>
-                <input type="file" id="profilePicture"  accept="image/*">
-            </fieldset>
-            <!-- Submit Button -->
-            <button type="button" onclick="submitForm()">Register</button>
-        </form>
-        <!-- Display Saved Records -->
-        <h2>Saved Records</h2>
-        <div id="recordsList"></div>
+
+  <div class="container">
+
+    <!-- Header -->
+    <div class="top-header">
+      <h1>Student Registration Portal</h1>
+      <p>Complete your academic registration with accurate information</p>
     </div>
-    <script src="scriptreg.js"></script>
+
+    <!-- Form -->
+    <form id="registrationForm">
+
+      <!-- Personal Information -->
+      <fieldset>
+        <legend>Personal Information</legend>
+
+        <div class="form-grid">
+
+          <div class="input-group">
+            <label>First Name</label>
+            <input type="text" id="firstName" placeholder="Enter First Name" required>
+          </div>
+
+          <div class="input-group">
+            <label>Last Name</label>
+            <input type="text" id="lastName" placeholder="Enter Last Name">
+          </div>
+
+          <div class="input-group">
+            <label>Date of Birth</label>
+            <input type="date" id="dob" required>
+          </div>
+
+          <div class="input-group">
+            <label>Gender</label>
+            <select id="gender" required>
+              <option value="">Select Gender</option>
+              <option>Male</option>
+              <option>Female</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="input-group">
+            <label>Email Address</label>
+            <input type="email" id="email" placeholder="example@gmail.com" required>
+          </div>
+
+          <div class="input-group">
+            <label>Confirm Email</label>
+            <input type="email" id="confirmEmail" placeholder="Re-enter Email" required>
+          </div>
+
+          <div class="input-group">
+            <label>Phone Number</label>
+            <input type="tel" id="phone" placeholder="+91 XXXXX XXXXX" required>
+          </div>
+
+          <div class="input-group">
+            <label>Blood Group</label>
+            <select>
+              <option value="">Select Blood Group</option>
+              <option>A+</option>
+              <option>B+</option>
+              <option>O+</option>
+              <option>AB+</option>
+              <option>A-</option>
+              <option>B-</option>
+              <option>O-</option>
+              <option>AB-</option>
+            </select>
+          </div>
+
+        </div>
+      </fieldset>
+
+      <!-- Academic Information -->
+      <fieldset>
+        <legend>Academic Information</legend>
+
+        <div class="form-grid">
+
+          <div class="input-group">
+            <label>Course</label>
+            <select id="course" required>
+              <option value="">Select Course</option>
+              <option>BSc Information Technology</option>
+              <option>BSc Computer Science</option>
+              <option>BSc Cognitive System</option>
+              <option>CSE</option>
+              <option>EEE</option>
+              <option>ECE</option>
+              <option>BCom</option>
+              <option>BCom CA</option>
+              <option>BPharm</option>
+              <option>Tamil Literature</option>
+              <option>English Literature</option>
+              <option>BSc Mathematics</option>
+              <option>BBA</option>
+              <option>MBA</option>
+              <option>MCA</option>
+            </select>
+          </div>
+
+          <div class="input-group">
+            <label>Academic Year</label>
+            <select id="year" required>
+              <option value="">Select Year</option>
+              <option>1st Year</option>
+              <option>2nd Year</option>
+              <option>3rd Year</option>
+              <option>4th Year</option>
+              <option>5th Year</option>
+            </select>
+          </div>
+
+          <div class="input-group">
+            <label>Register Number</label>
+            <input type="text" placeholder="College Register Number">
+          </div>
+
+          <div class="input-group">
+            <label>CGPA</label>
+            <input type="number" id="cgpa" min="1" max="10" step="0.01" placeholder="0.00">
+          </div>
+
+          <div class="input-group">
+            <label>Skills</label>
+            <input type="text" placeholder="HTML, CSS, JavaScript">
+          </div>
+
+          <div class="input-group">
+            <label>LinkedIn Profile</label>
+            <input type="url" placeholder="https://linkedin.com/in/username">
+          </div>
+
+        </div>
+
+      </fieldset>
+
+      <!-- Address -->
+      <fieldset>
+        <legend>Address Information</legend>
+
+        <div class="form-grid">
+
+          <div class="input-group">
+            <label>City</label>
+            <input type="text" placeholder="Enter City">
+          </div>
+
+          <div class="input-group">
+            <label>State</label>
+            <input type="text" placeholder="Enter State">
+          </div>
+
+          <div class="input-group">
+            <label>Pincode</label>
+            <input type="text" placeholder="Enter Pincode">
+          </div>
+
+          <div class="input-group">
+            <label>Country</label>
+            <input type="text" placeholder="Enter Country">
+          </div>
+
+        </div>
+
+        <div class="input-group address-box">
+          <label>Full Address</label>
+          <textarea placeholder="Enter Full Address"></textarea>
+        </div>
+
+      </fieldset>
+
+      <!-- Upload -->
+      <fieldset>
+        <legend>Profile Upload</legend>
+
+        <div class="profile-upload">
+          <h3>Upload Student Profile Picture</h3>
+          <p>Supported formats: JPG, PNG</p>
+          <input type="file" id="profilePicture" accept="image/*">
+        </div>
+
+      </fieldset>
+
+      <!-- Terms -->
+      <div class="terms">
+        <input type="checkbox" required>
+        <label>I confirm that all provided information is accurate.</label>
+      </div>
+
+      <!-- Button -->
+      <div class="btn-container">
+        <button type="button" onclick="submitForm()">
+          Complete Registration
+        </button>
+        <button type="button" onclick="openRecordsPage()" class="view-btn">
+            View Records
+        </button>
+      </div>
+
+    </form>
+
+    <!-- Records -->
+    <div class="records">
+      <h2>Saved Student Records</h2>
+      <div id="recordsList"></div>
+    </div>
+
+  </div>
+
+  <script src="scriptreg.js"></script>
+
 </body>
 </html>

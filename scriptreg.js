@@ -1,219 +1,284 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Load saved records on page load
+// ================================
+// STUDENT REGISTRATION SYSTEM
+// ================================
+
+// Load records when page loads
+document.addEventListener("DOMContentLoaded", () => {
     loadRecords();
 });
 
+// ================================
+// SUBMIT FORM
+// ================================
+
 function submitForm() {
-    const form = document.getElementById('registrationForm');
+
+    const form = document.getElementById("registrationForm");
     const formData = new FormData(form);
 
-    // Validate form
+    // Validate form before submission
     if (!validateForm()) {
         return;
-    }document.addEventListener('DOMContentLoaded', () => { 
-        // Load saved records on page load
-        loadRecords();
-    });
-    
-    function submitForm() {
-        const form = document.getElementById('registrationForm');
-        const formData = new FormData(form);
-    
-        // Validate form
-        if (!validateForm()) {
-            return;
-        }
-    
-        // Create a record object
-        const record = {
-            firstName: formData.get('firstName'),
-            lastName: formData.get('lastName'),
-            dob: formData.get('dob'),
-            gender: formData.get('gender'),
-            email: formData.get('email'),
-            confirmEmail: formData.get('confirmEmail'),
-            phone: formData.get('phone'),
-            course: formData.get('course'),
-            year: formData.get('year'),
-            grade: formData.get('grade'),
-            cgpa: formData.get('cgpa'),
-            // File handling is not covered here, but you can add it if needed
-        };
-    
-        // Save the record to localStorage
-        let records = JSON.parse(localStorage.getItem('records')) || [];
-        records.push(record);
-        localStorage.setItem('records', JSON.stringify(records));
-    
-        // Reset the form and reload records
-        form.reset();
-        loadRecords();
     }
-    
-    function validateForm() {
-        const email = document.getElementById('email').value;
-        const confirmEmail = document.getElementById('confirmEmail').value; // Get the confirm email value
-        const phone = document.getElementById('phone').value;
-        const grade = document.getElementById('grade').value;
-    
-        if (!validateEmail(email)) {
-            alert('Please enter a valid email address.');
-            return false;
-        }
-    
-        if (email !== confirmEmail) { // Check if emails match
-            alert('Email does not match.');
-            return false;
-        }
-    
-        if (!validatePhoneNumber(phone)) {
-            alert('Please enter a valid phone number (e.g., 123-456-7890).');
-            return false;
-        }
-    
-        if (!validateGrade(grade)) {
-            alert('Please enter a valid grade (e.g., A, B, C).');
-            return false;
-        }
-    
-        return true;
-    }
-    
-    function validateEmail(email) {
-        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return regex.test(email);
-    }
-    
-    function validatePhoneNumber(phone) {
-        const regex = /^\d{3}-\d{3}-\d{4}$/;
-        return regex.test(phone);
-    }
-    
-    function validateGrade(grade) {
-        const validGrades = ['A', 'B', 'C', 'D', 'E', 'F'];
-        return validGrades.includes(grade.toUpperCase());
-    }
-    
-    function loadRecords() {
-        const recordsList = document.getElementById('recordsList');
-        const records = JSON.parse(localStorage.getItem('records')) || [];
-    
-        recordsList.innerHTML = ''; // Clear existing records
-    
-        records.forEach((record, index) => {
-            const recordElement = document.createElement('div');
-            recordElement.classList.add('record');
-            recordElement.innerHTML = `
-                <h3>Record ${index + 1}</h3>
-                <p><strong>First Name:</strong> ${record.firstName}</p>
-                <p><strong>Last Name:</strong> ${record.lastName}</p>
-                <p><strong>Date of Birth:</strong> ${record.dob}</p>
-                <p><strong>Gender:</strong> ${record.gender}</p>
-                <p><strong>Email:</strong> ${record.email}</p>
-                <p><strong>Phone:</strong> ${record.phone}</p>
-                <p><strong>Course:</strong> ${record.course}</p>
-                <p><strong>Year:</strong> ${record.year}</p>
-                <p><strong>Grade:</strong> ${record.grade}</p>
-            `;
-            recordsList.appendChild(recordElement);
-        });
-    }
-    
 
-    // Create a record object
+    // Create student record object
     const record = {
-        firstName: formData.get('firstName'),
-        lastName: formData.get('lastName'),
-        dob: formData.get('dob'),
-        gender: formData.get('gender'),
-        email: formData.get('email'),
-        phone: formData.get('phone'),
-        course: formData.get('course'),
-        year: formData.get('year'),
-        grade: formData.get('grade'),
-        // File handling is not covered here, but you can add it if needed
+        id: Date.now(),
+
+        firstName: formData.get("firstName"),
+        lastName: formData.get("lastName"),
+        dob: formData.get("dob"),
+        gender: formData.get("gender"),
+
+        email: formData.get("email"),
+        confirmEmail: formData.get("confirmEmail"),
+
+        phone: formData.get("phone"),
+
+        course: formData.get("course"),
+        year: formData.get("year"),
+
+        grade: formData.get("grade"),
+        cgpa: formData.get("cgpa"),
+
+        createdAt: new Date().toLocaleString()
     };
 
-    // Save the record to localStorage
-    let records = JSON.parse(localStorage.getItem('records')) || [];
-    records.push(record);
-    localStorage.setItem('records', JSON.stringify(records));
+    // Get existing records
+    let records = JSON.parse(localStorage.getItem("records")) || [];
 
-    // Reset the form and reload records
+    // Add new record
+    records.push(record);
+
+    // Save back to localStorage
+    localStorage.setItem("records", JSON.stringify(records));
+
+    // Success alert
+    showAlert("Registration Successful!", "success");
+
+    // Reset form
     form.reset();
+
+    // Reload records
     loadRecords();
 }
 
+// ================================
+// VALIDATE FORM
+// ================================
+
 function validateForm() {
-    const email = document.getElementById('email').value;
-    const phone = document.getElementById('phone').value;
-    const grade = document.getElementById('grade').value;
-    const cgpa = document.getElementById('cgpa').value;
 
+    const email = document.getElementById("email").value.trim();
+    const confirmEmail = document.getElementById("confirmEmail").value.trim();
+
+    const phone = document.getElementById("phone").value.trim();
+
+    const grade = document.getElementById("grade").value.trim();
+
+    const cgpa = document.getElementById("cgpa").value.trim();
+
+    // Email validation
     if (!validateEmail(email)) {
-        alert('Please enter a valid email address.');
+        showAlert("Please enter a valid email address.", "error");
         return false;
     }
 
+    // Confirm email validation
+    if (email !== confirmEmail) {
+        showAlert("Email addresses do not match.", "error");
+        return false;
+    }
+
+    // Phone validation
     if (!validatePhoneNumber(phone)) {
-        alert('Please enter a valid phone number (e.g., 123-456-7890).');
+        showAlert("Enter valid phone number (10 digits).", "error");
         return false;
     }
 
+    // Grade validation
     if (!validateGrade(grade)) {
-        alert('Please enter a valid grade (e.g., A, B, C).');
+        showAlert("Grade must be A, B, C, D, E or F.", "error");
         return false;
     }
 
+    // CGPA validation
     if (!validateCGPA(cgpa)) {
-        alert('Please enter a valid CGPA (e.g., 3.5, 4.0,8,7).');
+        showAlert("CGPA must be between 0 and 10.", "error");
         return false;
     }
 
     return true;
 }
 
+// ================================
+// EMAIL VALIDATION
+// ================================
+
 function validateEmail(email) {
+
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     return regex.test(email);
 }
 
+// ================================
+// PHONE VALIDATION
+// ================================
+
 function validatePhoneNumber(phone) {
-    const regex = /^\d{3}-\d{3}-\d{4}$/;
+
+    // Accepts 10 digit Indian mobile numbers
+    const regex = /^[6-9]\d{9}$/;
+
     return regex.test(phone);
 }
 
+// ================================
+// GRADE VALIDATION
+// ================================
+
 function validateGrade(grade) {
-    const validGrades = ['A', 'B', 'C', 'D', 'E', 'F'];
+
+    const validGrades = ["A", "B", "C", "D", "E", "F"];
+
     return validGrades.includes(grade.toUpperCase());
 }
 
+// ================================
+// CGPA VALIDATION
+// ================================
+
 function validateCGPA(cgpa) {
-    const regex = /^(?:[0-9](?:\.\d{1,2})? | 10(?:\.0{1,2})?)$/; // Adjust range as needed
-    return regex.test(cgpa);
+
+    const value = parseFloat(cgpa);
+
+    return !isNaN(value) && value >= 0 && value <= 10;
 }
+
+// ================================
+// LOAD RECORDS
+// ================================
+
 function loadRecords() {
-    const recordsList = document.getElementById('recordsList');
-    const records = JSON.parse(localStorage.getItem('records')) || [];
 
-    recordsList.innerHTML = ''; // Clear existing records
+    const recordsList = document.getElementById("recordsList");
 
-    records.forEach((record, index) => {
-        const recordElement = document.createElement('div');
-        recordElement.classList.add('record');
-        recordElement.innerHTML = `
-            <h3>Record ${index + 1}</h3>
-            <p><strong>First Name:</strong> ${record.firstName}</p>
-            <p><strong>Last Name:</strong> ${record.lastName}</p>
-            <p><strong>Date of Birth:</strong> ${record.dob}</p>
-            <p><strong>Gender:</strong> ${record.gender}</p>
-            <p><strong>Email:</strong> ${record.email}</p>
-            <p><strong>Phone:</strong> ${record.phone}</p>
-            <p><strong>Course:</strong> ${record.course}</p>
-            <p><strong>Year:</strong> ${record.year}</p>
-            <p><strong>Grade:</strong> ${record.grade}</p>
-            <p><strong>CGPA:</strong>${record.cgpa}</p>
+    const records = JSON.parse(localStorage.getItem("records")) || [];
+
+    // Clear existing records
+    recordsList.innerHTML = "";
+
+    // If no records
+    if (records.length === 0) {
+
+        recordsList.innerHTML = `
+            <div class="empty-record">
+                <h3>No Records Found</h3>
+                <p>Student records will appear here.</p>
+            </div>
         `;
+
+        return;
+    }
+
+    // Display all records
+    records.reverse().forEach((record, index) => {
+
+        const recordElement = document.createElement("div");
+
+        recordElement.classList.add("record-card");
+
+        recordElement.innerHTML = `
+
+            <div class="record-header">
+                <h3>${record.firstName} ${record.lastName}</h3>
+                <span>#${index + 1}</span>
+            </div>
+
+            <div class="record-body">
+
+                <p><strong>DOB:</strong> ${record.dob}</p>
+
+                <p><strong>Gender:</strong> ${record.gender}</p>
+
+                <p><strong>Email:</strong> ${record.email}</p>
+
+                <p><strong>Phone:</strong> ${record.phone}</p>
+
+                <p><strong>Course:</strong> ${record.course}</p>
+
+                <p><strong>Year:</strong> ${record.year}</p>
+
+                <p><strong>Grade:</strong> ${record.grade}</p>
+
+                <p><strong>CGPA:</strong> ${record.cgpa}</p>
+
+                <p><strong>Registered:</strong> ${record.createdAt}</p>
+
+            </div>
+
+            <div class="record-buttons">
+
+                <button class="delete-btn" onclick="deleteRecord(${record.id})">
+                    Delete
+                </button>
+
+            </div>
+        `;
+
         recordsList.appendChild(recordElement);
     });
+}
+
+// ================================
+// DELETE RECORD
+// ================================
+
+function deleteRecord(id) {
+
+    let records = JSON.parse(localStorage.getItem("records")) || [];
+
+    // Filter out selected record
+    records = records.filter(record => record.id !== id);
+
+    // Save updated records
+    localStorage.setItem("records", JSON.stringify(records));
+
+    // Reload records
+    loadRecords();
+
+    showAlert("Record Deleted Successfully", "success");
+}
+
+// ================================
+// CUSTOM ALERT
+// ================================
+
+function showAlert(message, type) {
+
+    // Remove existing alert if any
+    const existingAlert = document.querySelector(".custom-alert");
+
+    if (existingAlert) {
+        existingAlert.remove();
+    }
+
+    // Create alert div
+    const alertBox = document.createElement("div");
+
+    alertBox.className = `custom-alert ${type}`;
+
+    alertBox.innerText = message;
+
+    document.body.appendChild(alertBox);
+
+    // Remove after 3 sec
+    setTimeout(() => {
+        alertBox.remove();
+    }, 3000);
+}
+
+function openRecordsPage(){
+    window.open("records.html", "_blank");
 }
